@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocational Training Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Vocational Training Recommendation System</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}" class="active">Home</a></li>
+                    <li><a href="{{ url_for('recommend') }}">Get Recommendations</a></li>
+                    <li><a href="{{ url_for('market_trends') }}">Market Trends</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Find Your Perfect Vocational Training</h2>
+                <p>Our AI-powered recommendation system analyzes regional employment data to suggest the most promising vocational training programs for your career goals.</p>
+                <a href="{{ url_for('recommend') }}" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="hero-image">
+                <img src="{{ url_for('static', filename='images/hero-image.svg') }}" alt="Career Growth Illustration">
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/data-icon.svg') }}" alt="Data Analysis">
+                    </div>
+                    <h3>Data-Driven Insights</h3>
+                    <p>We analyze regional employment statistics to identify in-demand skills and growing industries.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/ai-icon.svg') }}" alt="AI Recommendations">
+                    </div>
+                    <h3>AI Recommendations</h3>
+                    <p>Our machine learning algorithms match your profile with the most suitable training programs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/career-icon.svg') }}" alt="Career Pathways">
+                    </div>
+                    <h3>Career Pathways</h3>
+                    <p>Discover vocational training programs that lead to in-demand careers in your region.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Find Your Next Career Opportunity?</h2>
+            <p>Answer a few questions about your interests and background to get personalized training recommendations.</p>
+            <a href="{{ url_for('recommend') }}" class="btn btn-primary">Get Recommendations</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Vocational Training Recommendation System | Final Year ML Project</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

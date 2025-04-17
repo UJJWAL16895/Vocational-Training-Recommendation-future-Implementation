@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="45" fill="#ecf0f1"/>
+  
+  <!-- Career path representation -->
+  <g transform="translate(20, 20)">
+    <!-- Starting point -->
+    <circle cx="10" cy="30" r="8" fill="#3498db"/>
+    
+    <!-- Career paths -->
+    <path d="M18,30 C25,30 25,10 35,10" stroke="#2ecc71" stroke-width="3" fill="none"/>
+    <path d="M18,30 C25,30 25,30 35,30" stroke="#e74c3c" stroke-width="3" fill="none"/>
+    <path d="M18,30 C25,30 25,50 35,50" stroke="#f39c12" stroke-width="3" fill="none"/>
+    
+    <!-- Career destinations -->
+    <g transform="translate(35, 10)">
+      <rect x="0" y="-7" width="25" height="14" rx="2" fill="#2ecc71"/>
+      <text x="12.5" y="2" font-family="Arial" font-size="8" fill="white" text-anchor="middle">Tech</text>
+    </g>
+    
+    <g transform="translate(35, 30)">
+      <rect x="0" y="-7" width="25" height="14" rx="2" fill="#e74c3c"/>
+      <text x="12.5" y="2" font-family="Arial" font-size="8" fill="white" text-anchor="middle">Health</text>
+    </g>
+    
+    <g transform="translate(35, 50)">
+      <rect x="0" y="-7" width="25" height="14" rx="2" fill="#f39c12"/>
+      <text x="12.5" y="2" font-family="Arial" font-size="8" fill="white" text-anchor="middle">Trades</text>
+    </g>
+  </g>
+  
+  <!-- Ladder/steps to represent career growth -->
+  <g transform="translate(70, 15)">
+    <line x1="0" y1="0" x2="0" y2="50" stroke="#7f8c8d" stroke-width="2"/>
+    <line x1="15" y1="0" x2="15" y2="50" stroke="#7f8c8d" stroke-width="2"/>
+    
+    <line x1="0" y1="10" x2="15" y2="10" stroke="#7f8c8d" stroke-width="2"/>
+    <line x1="0" y1="20" x2="15" y2="20" stroke="#7f8c8d" stroke-width="2"/>
+    <line x1="0" y1="30" x2="15" y2="30" stroke="#7f8c8d" stroke-width="2"/>
+    <line x1="0" y1="40" x2="15" y2="40" stroke="#7f8c8d" stroke-width="2"/>
+  </g>
+  
+  <!-- Person icon climbing the ladder -->
+  <g transform="translate(70, 25)">
+    <circle cx="7.5" cy="0" r="4" fill="#2c3e50"/>
+    <line x1="7.5" y1="4" x2="7.5" y2="12" stroke="#2c3e50" stroke-width="2"/>
+    <line x1="3" y1="8" x2="12" y2="8" stroke="#2c3e50" stroke-width="2"/>
+    <line x1="7.5" y1="12" x2="3" y2="18" stroke="#2c3e50" stroke-width="2"/>
+    <line x1="7.5" y1="12" x2="12" y2="18" stroke="#2c3e50" stroke-width="2"/>
+  </g>
+</svg>

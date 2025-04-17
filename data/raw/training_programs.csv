@@ -1,0 +1,16 @@
+id,name,duration,skills,job_placement_rate,cost,category
+1,Web Development Bootcamp,12 weeks,"HTML,CSS,JavaScript,React",85,8000,Technology
+2,Data Science Fundamentals,16 weeks,"Python,SQL,Machine,Learning,Statistics",78,10000,Technology
+3,Healthcare Administration,8 weeks,"Medical,Billing,Healthcare,Regulations,Patient,Management",82,5500,Healthcare
+4,Cybersecurity Specialist,14 weeks,"Network,Security,Ethical,Hacking,Security,Compliance",88,9200,Technology
+5,Digital Marketing,10 weeks,"SEO,Social,Media,Marketing,Content,Creation,Analytics",75,6800,Business
+6,Electrical Technician,20 weeks,"Circuit,Analysis,Electrical,Installation,Troubleshooting,Safety,Protocols",85,7500,Trades
+7,Nursing Assistant,12 weeks,"Patient,Care,Medical,Terminology,First,Aid,CPR",90,6000,Healthcare
+8,Graphic Design,14 weeks,"Adobe,Creative,Suite,Typography,Layout,Design,UI/UX",72,7800,Creative
+9,Business Administration,10 weeks,"Accounting,Management,Marketing,Finance",80,6500,Business
+10,Culinary Arts,16 weeks,"Food,Preparation,Nutrition,Menu,Planning,Kitchen,Management",78,9000,Creative
+11,HVAC Technician,18 weeks,"Heating,Systems,Cooling,Systems,Maintenance,Troubleshooting",88,8200,Trades
+12,Software Engineering,24 weeks,"Java,Python,C++,Software,Design,Algorithms",92,12000,Technology
+13,Medical Billing and Coding,12 weeks,"Medical,Terminology,Coding,Systems,Insurance,Processing",85,6800,Healthcare
+14,Automotive Repair,20 weeks,"Engine,Repair,Electrical,Systems,Diagnostics,Brake,Systems",82,9500,Trades
+15,Early Childhood Education,14 weeks,"Child,Development,Curriculum,Planning,Classroom,Management",75,5800,Education

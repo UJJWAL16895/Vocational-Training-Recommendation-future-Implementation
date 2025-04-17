@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Trends - Vocational Training Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/market_trends.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Vocational Training Recommendation System</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('recommend') }}">Get Recommendations</a></li>
+                    <li><a href="{{ url_for('market_trends') }}" class="active">Market Trends</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="market-trends-section">
+        <div class="container">
+            <h2>Regional Employment Market Trends</h2>
+            <p class="section-description">Explore current job market trends and employment opportunities across different regions and industries.</p>
+            
+            <div class="region-title-container">
+                <h3 class="region-title">All Regions</h3>
+                <span class="region-subtitle">Current market data and employment trends</span>
+            </div>
+            
+            <div class="region-selector">
+                <label for="region-select">Select Region:</label>
+                <select id="region-select">
+                    <option value="all">All Regions</option>
+                    <option value="northeast">Northeast</option>
+                    <option value="midwest">Midwest</option>
+                    <option value="south">South</option>
+                    <option value="west">West</option>
+                    <option value="northwest">Northwest</option>
+                    <option value="southwest">Southwest</option>
+                    <option value="southeast">Southeast</option>
+                </select>
+            </div>
+            
+            <div class="charts-container">
+                <div class="chart-row">
+                    <div class="chart-card">
+                        <div class="chart-container">
+                            <canvas id="industry-demand-chart"></canvas>
+                        </div>
+                        <div class="chart-description">
+                            <h3>Industry Demand</h3>
+                            <p>Current demand for skills across different industry sectors in the selected region.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-container">
+                            <canvas id="regional-comparison-chart"></canvas>
+                        </div>
+                        <div class="chart-description">
+                            <h3>Regional Comparison</h3>
+                            <p>How industry demand varies across different regions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-container">
+                            <canvas id="skills-gap-chart"></canvas>
+                        </div>
+                        <div class="chart-description">
+                            <h3>Skills Gap Analysis</h3>
+                            <p>Comparison between skill demand and available workforce supply.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-container">
+                            <canvas id="job-growth-chart"></canvas>
+                        </div>
+                        <div class="chart-description">
+                            <h3>Job Growth Projection</h3>
+                            <p>Five-year projection of job growth across different industries.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="insights-section">
+                <div class="insights-header">
+                    <h3>Data Insights & Analysis</h3>
+                    <p>Gain deeper understanding of market trends with our expert analysis</p>
+                </div>
+                
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        </div>
+                        <div class="insight-content">
+                            <h4>Industry Growth Patterns</h4>
+                            <p>Healthcare and technology sectors show the strongest growth potential across all regions, with 15-20% projected increase in job opportunities over the next five years.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                        </div>
+                        <div class="insight-content">
+                            <h4>Regional Opportunities</h4>
+                            <p>The Northwest region shows the highest demand for skilled trades and manufacturing roles, while the Southeast leads in healthcare and service industry positions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                        </div>
+                        <div class="insight-content">
+                            <h4>Skills in Demand</h4>
+                            <p>Data analysis, cybersecurity, and healthcare specializations show the largest skills gaps nationwide, presenting significant opportunities for vocational training programs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+                        </div>
+                        <div class="insight-content">
+                            <h4>Future Projections</h4>
+                            <p>Emerging technologies like AI and renewable energy are expected to create over 500,000 new vocational positions in the next decade, requiring specialized training programs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Vocational Training Recommendation System</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/market_trends.js') }}"></script>
+</body>
+</html>

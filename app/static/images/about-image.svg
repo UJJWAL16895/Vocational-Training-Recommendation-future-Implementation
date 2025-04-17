@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="350" viewBox="0 0 500 350">
+  <!-- Background -->
+  <rect width="500" height="350" fill="#f8f9fa" opacity="0.5"/>
+  
+  <!-- Data flow diagram -->
+  <g transform="translate(50, 50)">
+    <!-- Data sources -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="100" height="60" rx="5" fill="#3498db" opacity="0.8"/>
+      <text x="50" y="30" font-family="Arial" font-size="12" fill="white" text-anchor="middle" dominant-baseline="middle">Regional
+Employment Data</text>
+      
+      <rect x="0" y="80" width="100" height="60" rx="5" fill="#3498db" opacity="0.8"/>
+      <text x="50" y="110" font-family="Arial" font-size="12" fill="white" text-anchor="middle" dominant-baseline="middle">Training Program
+Information</text>
+      
+      <rect x="0" y="160" width="100" height="60" rx="5" fill="#3498db" opacity="0.8"/>
+      <text x="50" y="190" font-family="Arial" font-size="12" fill="white" text-anchor="middle" dominant-baseline="middle">User Preferences
+& Background</text>
+    </g>
+    
+    <!-- Data flow arrows -->
+    <g>
+      <path d="M100,30 L150,30" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+      <path d="M100,110 L150,110" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+      <path d="M100,190 L150,190" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    </g>
+    
+    <!-- Processing stages -->
+    <g transform="translate(150, 0)">
+      <rect x="0" y="0" width="100" height="60" rx="5" fill="#2ecc71" opacity="0.8"/>
+      <text x="50" y="30" font-family="Arial" font-size="12" fill="white" text-anchor="middle" dominant-baseline="middle">Data
+Preprocessing</text>
+      
+      <rect x="0" y="80" width="100" height="60" rx="5" fill="#2ecc71" opacity="0.8"/>
+      <text x="50" y="110" font-family="Arial" font-size="12" fill="white" text-anchor="middle" dominant-baseline="middle">Feature
+Engineering</text>
+      
+      <rect x="0" y="160" width="100" height="60" rx="5" fill="#2ecc71" opacity="0.8"/>
+      <text x="50" y="190" font-family="Arial" font-size="12" fill="white" text-anchor="middle" dominant-baseline="middle">User Profile
+Analysis</text>
+    </g>
+    
+    <!-- More arrows -->
+    <g>
+      <path d="M250,30 L270,70 L300,70" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+      <path d="M250,110 L300,110" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+      <path d="M250,190 L270,150 L300,150" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    </g>
+    
+    <!-- ML model -->
+    <g transform="translate(300, 70)">
+      <rect x="0" y="0" width="120" height="100" rx="5" fill="#9b59b6" opacity="0.8"/>
+      <text x="60" y="30" font-family="Arial" font-size="14" fill="white" text-anchor="middle" dominant-baseline="middle">ML Model</text>
+      
+      <!-- Gears to represent the model working -->
+      <circle cx="40" cy="60" r="15" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="40" cy="60" r="8" fill="none" stroke="white" stroke-width="2"/>
+      <path d="M40,45 L40,40 M40,75 L40,80 M25,60 L20,60 M55,60 L60,60 M30,50 L25,45 M50,50 L55,45 M30,70 L25,75 M50,70 L55,75" stroke="white" stroke-width="2"/>
+      
+      <circle cx="80" cy="60" r="15" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="80" cy="60" r="8" fill="none" stroke="white" stroke-width="2"/>
+      <path d="M80,45 L80,40 M80,75 L80,80 M65,60 L60,60 M95,60 L100,60 M70,50 L65,45 M90,50 L95,45 M70,70 L65,75 M90,70 L95,75" stroke="white" stroke-width="2"/>
+    </g>
+    
+    <!-- Final arrow -->
+    <path d="M420,110 L470,110" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    
+    <!-- Recommendations output -->
+    <g transform="translate(300, 190)">
+      <rect x="0" y="0" width="120" height="60" rx="5" fill="#e74c3c" opacity="0.8"/>
+      <text x="60" y="30" font-family="Arial" font-size="12" fill="white" text-anchor="middle" dominant-baseline="middle">Personalized
+Recommendations</text>
+    </g>
+  </g>
+  
+  <!-- User interface representation -->
+  <g transform="translate(350, 50)">
+    <rect x="0" y="0" width="100" height="160" rx="10" fill="white" stroke="#2c3e50" stroke-width="2"/>
+    
+    <!-- Screen elements -->
+    <rect x="10" y="10" width="80" height="20" rx="3" fill="#ecf0f1"/>
+    <rect x="10" y="40" width="80" height="40" rx="3" fill="#3498db" opacity="0.7"/>
+    <rect x="10" y="90" width="35" height="25" rx="3" fill="#2ecc71" opacity="0.7"/>
+    <rect x="55" y="90" width="35" height="25" rx="3" fill="#e74c3c" opacity="0.7"/>
+    <rect x="10" y="125" width="80" height="25" rx="3" fill="#f39c12" opacity="0.7"/>
+  </g>
+  
+  <!-- Arrow definitions -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7f8c8d"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=False
+      - DEBUG=False
+      - SECRET_KEY=your-secure-random-key
+    volumes:
+      - ./data:/app/data
+      - ./models/trained:/app/models/trained
+      - ./results:/app/results

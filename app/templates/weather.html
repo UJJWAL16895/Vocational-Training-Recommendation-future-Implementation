@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Tracker for Farming</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .search-section {
+            background-color: #f5f7fa;
+            padding: 30px 0;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .search-container {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+        }
+        
+        .search-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .weather-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .weather-card h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 18px;
+        }
+        
+        .weather-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 15px 0;
+        }
+        
+        .recommendations-section {
+            margin: 40px 0;
+        }
+        
+        .tip-card {
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        
+        .tip-card.warning {
+            border-left-color: #ff9800;
+        }
+        
+        .tip-card.danger {
+            border-left-color: #f44336;
+        }
+        
+        .tip-card.general-tip {
+            border-left-color: #2196F3;
+        }
+        
+        .tip-card.crop-warm {
+            border-left-color: #ff9800;
+        }
+        
+        .tip-card.crop-cool {
+            border-left-color: #2196F3;
+        }
+        
+        .forecast-section {
+            margin: 40px 0;
+        }
+        
+        .forecast-grid {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding-bottom: 15px;
+        }
+        
+        .forecast-card {
+            min-width: 150px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .forecast-date {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .forecast-temp {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 10px 0;
+        }
+        
+        .forecast-details {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin: 30px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .weather-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                border-radius: 4px 4px 0 0;
+            }
+            
+            .search-button {
+                border-radius: 0 0 4px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Weather Tracker for Farming</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('recommend') }}">Get Recommendations</a></li>
+                    <li><a href="{{ url_for('market_trends') }}">Market Trends</a></li>
+                    <li><a href="{{ url_for('weather') }}" class="active">Weather</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="search-section">
+        <div class="container">
+            <h2>Check Weather Conditions</h2>
+            <div class="search-container">
+                <input type="text" id="location-input" class="search-input" placeholder="Enter location (city, zip code)" value="">
+                <button onclick="getWeather()" class="search-button">Get Weather</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="weather-grid">
+            <div class="weather-card">
+                <h3>Temperature</h3>
+                <div class="weather-value" id="temperature">--°C</div>
+            </div>
+            <div class="weather-card">
+                <h3>Humidity</h3>
+                <div class="weather-value" id="humidity">--%</div>
+            </div>
+            <div class="weather-card">
+                <h3>Wind Speed</h3>
+                <div class="weather-value" id="wind">-- m/s</div>
+            </div>
+            <div class="weather-card">
+                <h3>Rainfall</h3>
+                <div class="weather-value" id="rain">-- mm</div>
+            </div>
+            <div class="weather-card">
+                <h3>UV Index</h3>
+                <div class="weather-value" id="uv">--</div>
+            </div>
+            <div class="weather-card">
+                <h3>Pressure</h3>
+                <div class="weather-value" id="pressure">-- hPa</div>
+            </div>
+            <div class="weather-card">
+                <h3>Wind Direction</h3>
+                <div class="weather-value" id="windDir">--</div>
+            </div>
+            <div class="weather-card">
+                <h3>Feels Like</h3>
+                <div class="weather-value" id="feelsLike">--°C</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="forecast-section container">
+        <h2>7-Day Forecast</h2>
+        <div class="forecast-grid" id="forecast-container">
+            <!-- Forecast cards will be added here dynamically -->
+        </div>
+    </section>
+
+    <section class="recommendations-section container">
+        <h2>Farming Recommendations</h2>
+        <p>Search for a location to get personalized farming recommendations based on weather conditions.</p>
+        <div id="farming-tips">
+            <!-- Farming tips will be added here dynamically -->
+        </div>
+    </section>
+
+    <section class="recommendations-section container">
+        <h2>Crop Recommendations</h2>
+        <p>Search for a location to get personalized crop recommendations based on weather conditions.</p>
+        <div id="crop-recommendations">
+            <!-- Crop recommendations will be added here dynamically -->
+        </div>
+    </section>
+
+    <script>
+        // Replace with your OpenWeatherMap API key
+        const API_KEY = 'YOUR_WEATHERAPI_KEY';
+        
+        // Get the input element
+        const locationInput = document.getElementById('location-input');
+        
+        // Add event listener for Enter key
+        locationInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                getWeather();
+            }
+        });
+        
+        async function getWeather() {
+            // Get the location from the input
+            const location = document.getElementById('location-input').value;
+            
+            if (!location) {
+                alert('Please enter a location');
+                return;
+            }
+            
+            try {
+                // Fetch current weather data
+                const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${location}&aqi=no`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+                
+                // Update current weather
+                document.getElementById('temperature').textContent = `${data.current.temp_c}°C`;
+                document.getElementById('humidity').textContent = `${data.current.humidity}%`;
+                document.getElementById('wind').textContent = `${data.current.wind_kph} km/h`;
+                document.getElementById('rain').textContent = `${data.current.precip_mm} mm`;
+                document.getElementById('uv').textContent = data.current.uv;
+                document.getElementById('pressure').textContent = `${data.current.pressure_mb} hPa`;
+                document.getElementById('windDir').textContent = data.current.wind_dir;
+                document.getElementById('feelsLike').textContent = `${data.current.feelslike_c}°C`;
+                
+                // Fetch forecast data
+                await getForecast(location);
+                
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                
+                // Check if the error is due to API key
+                if (API_KEY === 'YOUR_WEATHERAPI_KEY') {
+                    alert('Please replace the API key in the code with your actual WeatherAPI.com API key');
+                } else {
+                    alert('Error fetching weather data: ' + error.message);
+                }
+            }
+        }
+        
+        async function getForecast(location) {
+            try {
+                // Fetch forecast data (1 day with hourly)
+                const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=1&aqi=no`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+                
+                // Generate farming tips based on current weather
+                const farmingTips = generateFarmingTips(data.current, data.forecast.forecastday);
+                document.getElementById('farming-tips').innerHTML = farmingTips;
+                
+                // Generate crop recommendations
+                const cropRecommendations = generateCropRecommendations(data.current, data.forecast.forecastday);
+                document.getElementById('crop-recommendations').innerHTML = cropRecommendations;
+                
+                // Get 7-day forecast
+                await getSevenDayForecast(location);
+                
+            } catch (error) {
+                console.error('Error fetching forecast data:', error);
+                alert('Error fetching forecast data: ' + error.message);
+            }
+        }
+        
+        async function getSevenDayForecast(location) {
+            try {
+                // Fetch 7-day forecast data
+                const sevenDayResponse = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7&aqi=no`);
+                const sevenDayData = await sevenDayResponse.json();
+                
+                if (sevenDayData.error) {
+                    throw new Error(sevenDayData.error.message);
+                }
+                
+                // Clear previous forecast
+                const forecastContainer = document.getElementById('forecast-container');
+                forecastContainer.innerHTML = '';
+                
+                // Add forecast cards
+                sevenDayData.forecast.forecastday.forEach(day => {
+                    const date = new Date(day.date);
+                    const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+                    const monthDay = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    
+                    const forecastCard = document.createElement('div');
+                    forecastCard.className = 'forecast-card';
+                    forecastCard.innerHTML = `
+                        <div class="forecast-date">${dayName}<br>${monthDay}</div>
+                        <img src="${day.day.condition.icon}" alt="${day.day.condition.text}">
+                        <div class="forecast-temp">${day.day.avgtemp_c}°C</div>
+                        <div class="forecast-details">
+                            <div>H: ${day.day.maxtemp_c}°C L: ${day.day.mintemp_c}°C</div>
+                            <div>Rain: ${day.day.totalprecip_mm} mm</div>
+                            <div>Humidity: ${day.day.avghumidity}%</div>
+                        </div>
+                    `;
+                    
+                    forecastContainer.appendChild(forecastCard);
+                });
+                
+            } catch (error) {
+                console.error('Error fetching 7-day forecast:', error);
+            }
+        }
+        
+        function generateFarmingTips(currentWeather, forecastDays) {
+            let tips = '';
+            
+            // If no weather data, return empty tips
+            if (!currentWeather) return tips;
+            
+            // Get current weather conditions
+            const temp = currentWeather.temp_c;
+            
+            // Temperature-based tips
+            if (temp > 30) {
+                tips += '<div class="tip-card warning"><strong>⚠️ High Temperature Alert</strong> Current temperature is above 30°C. Ensure adequate irrigation and consider providing shade for sensitive crops. Water plants during early morning or evening to reduce evaporation.</div>';
+            } else if (temp < 5) {
+                tips += '<div class="tip-card warning"><strong>⚠️ Low Temperature Alert</strong> Current temperature is below 5°C. Protect sensitive plants from frost. Consider using row covers or frost cloths for overnight protection.</div>';
+            }
+            
+            // Humidity-based tips
+            const humidity = currentWeather.humidity;
+            if (humidity > 80) {
+                tips += '<div class="tip-card warning"><strong>⚠️ High Humidity Alert</strong> Current humidity is above 80%. Monitor for fungal diseases. Ensure proper spacing between plants for air circulation and avoid overhead watering.</div>';
+            } else if (humidity < 30) {
+                tips += '<div class="tip-card warning"><strong>⚠️ Low Humidity Alert</strong> Current humidity is below 30%. Increase irrigation frequency and consider mulching to retain soil moisture.</div>';
+            }
+            
+            // Rainfall-based tips
+            const rainfall = currentWeather.precip_mm;
+            if (rainfall > 10) {
+                tips += '<div class="tip-card warning"><strong>⚠️ Heavy Rainfall Alert</strong> Significant precipitation detected. Check for proper drainage in fields and consider delaying any fertilizer application to prevent runoff.</div>';
+            } else if (rainfall === 0 && forecastDays && forecastDays[0] && forecastDays[0].day.totalprecip_mm === 0) {
+                tips += '<div class="tip-card"><strong>🌧️ Irrigation Reminder</strong> No rainfall detected or forecasted. Ensure adequate irrigation, especially for newly planted crops.</div>';
+            }
+            
+            // Wind-based tips
+            const windSpeed = currentWeather.wind_kph;
+            if (windSpeed > 20) {
+                tips += '<div class="tip-card warning"><strong>⚠️ High Wind Alert</strong> Wind speeds above 20 km/h detected. Delay spraying operations and provide support for tall plants or young trees.</div>';
+            }
+            
+            // UV index-based tips
+            const uvIndex = currentWeather.uv;
+            if (uvIndex > 8) {
+                tips += '<div class="tip-card warning"><strong>⚠️ High UV Alert</strong> UV index is high. Ensure farm workers have adequate sun protection. Some sensitive crops may benefit from partial shade during peak sun hours.</div>';
+            }
+            
+            // If no specific alerts, provide general favorable conditions message
+            if (tips === '') {
+                tips = '<div class="tip-card general-tip"><strong>✅ Favorable Conditions</strong> Current weather conditions are generally favorable for farming activities. Continue regular monitoring and maintenance.</div>';
+            }
+            
+            // Add general seasonal tip
+            const month = new Date().getMonth();
+            if (month >= 2 && month <= 4) { // Spring (March-May)
+                tips += '<div class="tip-card"><strong>🌱 Seasonal Tip</strong> Spring is a good time for planting most crops. Monitor soil temperature and moisture levels for optimal seed germination.</div>';
+            } else if (month >= 5 && month <= 7) { // Summer (June-August)
+                tips += '<div class="tip-card"><strong>☀️ Seasonal Tip</strong> During summer, monitor irrigation needs closely. Early morning watering is most efficient. Consider shade cloth for sensitive crops.</div>';
+            } else if (month >= 8 && month <= 10) { // Fall (September-November)
+                tips += '<div class="tip-card"><strong>🍂 Seasonal Tip</strong> Fall is ideal for soil testing and amendments. Consider planting cover crops in fallow fields to improve soil health.</div>';
+            } else { // Winter (December-February)
+                tips += '<div class="tip-card"><strong>❄️ Seasonal Tip</strong> Winter is a good time for equipment maintenance and planning. Protect perennial plants from freezing temperatures.</div>';
+            }
+            
+            return tips;
+        }
+        
+        function generateCropRecommendations(currentWeather, forecastDays) {
+            let recommendations = '';
+            
+            // If no weather data, return empty recommendations
+            if (!currentWeather) return recommendations;
+            
+            // Get weather data
+            const temp = currentWeather.temp_c;
+            const rainfall = currentWeather.precip_mm;
+            const forecast = forecastDays && forecastDays[0] ? forecastDays[0].day : null;
+            const humidity = currentWeather.humidity;
+            
+            // Get current month for seasonal recommendations
+            const month = new Date().getMonth();
+            
+            // Add season-specific recommendations
+            if (month >= 2 && month <= 4) { // Spring
+                recommendations += '<div class="tip-card"><strong>🌱 Spring Planting</strong> Good time to plant: Lettuce, Spinach, Peas, Radishes, Carrots, Beets, Potatoes, Onions, and Broccoli.</div>';
+            } else if (month >= 5 && month <= 7) { // Summer
+                recommendations += '<div class="tip-card"><strong>☀️ Summer Planting</strong> Good time to plant: Tomatoes, Peppers, Eggplant, Cucumbers, Squash, Beans, Corn, Melons, and Basil.</div>';
+            } else if (month >= 8 && month <= 10) { // Fall
+                recommendations += '<div class="tip-card"><strong>🍂 Fall Planting</strong> Good time to plant: Kale, Spinach, Lettuce, Radishes, Turnips, Garlic, Cover Crops, and certain varieties of Peas.</div>';
+            } else { // Winter
+                recommendations += '<div class="tip-card"><strong>❄️ Winter Planning</strong> Focus on planning for spring, ordering seeds, and maintaining any greenhouse or indoor growing operations.</div>';
+            }
+            
+            // Temperature-based recommendations
+            if (temp > 20) {
+                // Warm weather crops (temperature > 20°C)
+                recommendations += '<div class="tip-card crop-warm"><strong>🌶️ Warm Weather Crops</strong> Suitable crops include: Tomatoes, Peppers, Eggplant, Okra, Cucumbers, Melons, Sweet Corn, Beans, Squash, and Basil.</div>';
+            } else {
+                // Cool weather crops (temperature < 20°C)
+                recommendations += '<div class="tip-card crop-cool"><strong>🥬 Cool Weather Crops</strong> Suitable crops include: Lettuce, Spinach, Kale, Broccoli, Cauliflower, Cabbage, Peas, Radishes, Carrots, and Beets.</div>';
+            }
+            
+            // Moisture conditions
+            if (rainfall > 5 || (humidity > 70)) {
+                recommendations += '<div class="tip-card"><strong>💧 Wet Conditions</strong> Consider crops that tolerate wet conditions: Rice, Taro, Watercress, Cranberries, Blueberries, and certain varieties of Mint.</div>';
+            } else if (rainfall < 2 && humidity < 50) {
+                recommendations += '<div class="tip-card"><strong>🏜️ Dry Conditions</strong> Consider drought-tolerant crops: Sorghum, Millet, Amaranth, Quinoa, Tepary Beans, Cowpeas, and certain varieties of Sunflowers.</div>';
+            }
+            
+            return recommendations;
+        }
+    </script>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Weather Tracker for Farming | Part of Vocational Training Recommendation System</p>
+        </div>
+    </footer>
+</body>
+</html>
